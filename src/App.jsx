@@ -3,7 +3,7 @@ import { useStore } from './hooks/useStore.js';
 import Sidebar from './components/Sidebar.jsx';
 import ProjectView from './components/ProjectView.jsx';
 import SummaryView, { getSummaryGroups } from './components/SummaryView.jsx';
-import EditTaskDialog from './components/EditTaskDialog.jsx';
+import TaskDialog from './components/TaskDialog.jsx';
 import ConfirmDialog from './components/ConfirmDialog.jsx';
 
 const VIEW_KEY = 'todo-app:view';
@@ -15,6 +15,7 @@ export default function App() {
     try { return localStorage.getItem(VIEW_KEY) || 'summary'; } catch { return 'summary'; }
   });
   const [editing, setEditing] = useState(null);
+  const [adding, setAdding] = useState(false);
   const [confirming, setConfirming] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -55,7 +56,7 @@ export default function App() {
       </header>
 
       <aside className="sidebar-wrap">
-        <div className="brand">Tasks</div>
+        <div className="brand"><span className="brand-mark" aria-hidden="true">✓</span> ClaudeTodoapp</div>
         <Sidebar
           projects={projects}
           tasks={tasks}
@@ -84,6 +85,7 @@ export default function App() {
             onDeleteTask={deleteTask}
             onDeleted={() => select('summary')}
             askConfirm={setConfirming}
+            onNewTask={() => setAdding(true)}
           />
         ) : (
           <SummaryView
@@ -93,12 +95,28 @@ export default function App() {
             onEdit={setEditing}
             onDeleteTask={deleteTask}
             onOpenProject={select}
+            onNewTask={() => setAdding(true)}
           />
         )}
       </main>
 
       {editing && (
-        <EditTaskDialog task={editing} onSave={store.updateTask} onClose={() => setEditing(null)} />
+        <TaskDialog
+          title="Edit task"
+          task={editing}
+          submitLabel="Save changes"
+          onSubmit={(values) => store.updateTask(editing.id, values)}
+          onClose={() => setEditing(null)}
+        />
+      )}
+      {adding && (
+        <TaskDialog
+          title={project ? `New task in ${project.name}` : 'New task'}
+          projects={project ? undefined : projects}
+          submitLabel="Add task"
+          onSubmit={(values) => store.addTask(project ? { ...values, projectId: project.id } : values)}
+          onClose={() => setAdding(false)}
+        />
       )}
       {confirming && <ConfirmDialog {...confirming} onClose={() => setConfirming(null)} />}
     </div>

@@ -15,12 +15,13 @@ npm run build      # production build in dist/
 
 - **Projects:** create, rename, delete (deleting removes the project's tasks).
 - **Tasks:** title, notes/description, priority (High / Medium / Low), optional due date.
-  Edit, delete, or tick off a task. Completed tasks are hidden behind a **Show completed** toggle.
+  Add tasks with the **+ New task** button, which opens a pop-up (on the Today page it also
+  asks which project). Edit, delete, or tick off a task. Completed tasks are hidden behind a **Show completed** toggle.
 - **Today page:** open tasks from *all* projects that are **overdue**, **due today**
   or **high priority**, grouped into those three sections (each task appears once).
   Completed tasks drop off automatically.
 - Sorting: overdue → due date → priority.
-- Responsive (the sidebar becomes a slide-out menu on mobile) with automatic light/dark mode.
+- Modern light design; responsive (the sidebar becomes a slide-out menu and pop-ups become bottom sheets on mobile).
 
 ## Structure
 
@@ -31,7 +32,7 @@ src/
     index.js              ← picks which repo the app uses
   hooks/useStore.js       ← React state + actions, calls the repo
   lib/dates.js            ← date helpers, sorting, overdue logic
-  components/             ← Sidebar, ProjectView, SummaryView, TaskItem, TaskForm, EditTaskDialog
+  components/             ← Sidebar, ProjectView, SummaryView, TaskItem, TaskForm, TaskDialog, ConfirmDialog
   App.jsx, styles.css
 ```
 

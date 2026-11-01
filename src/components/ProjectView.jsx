@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import TaskForm from './TaskForm.jsx';
 import TaskItem from './TaskItem.jsx';
 import { sortTasks } from '../lib/dates.js';
 
-export default function ProjectView({ project, tasks, store, onEdit, onDeleteTask, onDeleted, askConfirm }) {
+export default function ProjectView({ project, tasks, store, onEdit, onDeleteTask, onDeleted, askConfirm, onNewTask }) {
   const [renaming, setRenaming] = useState(false);
   const [name, setName] = useState(project.name);
   const [showCompleted, setShowCompleted] = useState(false);
@@ -62,13 +61,17 @@ export default function ProjectView({ project, tasks, store, onEdit, onDeleteTas
         <div className="header-actions">
           <button className="btn ghost" onClick={() => setRenaming(true)}>Rename</button>
           <button className="btn ghost danger" onClick={deleteProject}>Delete</button>
+          <button className="btn primary add-btn" onClick={onNewTask}>
+            <span className="plus" aria-hidden="true">+</span> New task
+          </button>
         </div>
       </header>
 
-      <TaskForm compact onSubmit={(values) => store.addTask({ ...values, projectId: project.id })} />
-
       {active.length === 0 ? (
-        <p className="empty">{completed.length ? 'All done here. 🎉' : 'No tasks yet. Add your first one above.'}</p>
+        <div className="empty">
+          <p>{completed.length ? 'All done here.' : 'No tasks in this project yet.'}</p>
+          <button className="btn soft" onClick={onNewTask}>+ Add a task</button>
+        </div>
       ) : (
         <ul className="task-list">
           {active.map((t) => (

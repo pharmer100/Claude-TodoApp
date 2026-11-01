@@ -18,7 +18,7 @@ export function getSummaryGroups(tasks) {
   ];
 }
 
-export default function SummaryView({ projects, tasks, store, onEdit, onDeleteTask, onOpenProject }) {
+export default function SummaryView({ projects, tasks, store, onEdit, onDeleteTask, onOpenProject, onNewTask }) {
   const groups = getSummaryGroups(tasks);
   const total = groups.reduce((n, g) => n + g.tasks.length, 0);
   const projectName = (id) => projects.find((p) => p.id === id)?.name ?? 'Unknown project';
@@ -31,6 +31,13 @@ export default function SummaryView({ projects, tasks, store, onEdit, onDeleteTa
           <h1>Today</h1>
           <p className="subtitle">{dateLabel}</p>
         </div>
+        {projects.length > 0 && (
+          <div className="header-actions">
+            <button className="btn primary add-btn" onClick={onNewTask}>
+              <span className="plus" aria-hidden="true">+</span> New task
+            </button>
+          </div>
+        )}
       </header>
 
       {projects.length === 0 ? (
