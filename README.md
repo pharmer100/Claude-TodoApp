@@ -15,7 +15,7 @@ npm run build      # production build in dist/
 
 - **Projects:** create, rename, delete (deleting removes the project's tasks).
 - **Tasks:** title, notes/description, priority (High / Medium / Low), optional due date.
-  Add tasks with the **+ New task** button, which opens a pop-up (on the Today page it also
+  Add tasks with the **+ New task** button, which opens a pop-up (on the Overview page it also
   asks which project). Edit, delete, or tick off a task. Completed tasks are hidden behind a **Show completed** toggle.
 - **Now / Next / Later:** the Overview page (all projects) and every project page group open
   tasks into three collapsible sections. Each task appears in one section only:
