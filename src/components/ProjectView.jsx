@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import TaskItem from './TaskItem.jsx';
-import { sortTasks } from '../lib/dates.js';
+import TaskSections from './TaskSections.jsx';
 
 export default function ProjectView({ project, tasks, store, onEdit, onDeleteTask, onDeleted, askConfirm, onNewTask }) {
   const [renaming, setRenaming] = useState(false);
@@ -8,7 +8,7 @@ export default function ProjectView({ project, tasks, store, onEdit, onDeleteTas
   const [showCompleted, setShowCompleted] = useState(false);
 
   const projectTasks = tasks.filter((t) => t.projectId === project.id);
-  const active = sortTasks(projectTasks.filter((t) => !t.completed));
+  const active = projectTasks.filter((t) => !t.completed);
   const completed = projectTasks
     .filter((t) => t.completed)
     .sort((a, b) => (b.completedAt ?? '').localeCompare(a.completedAt ?? ''));
@@ -73,11 +73,7 @@ export default function ProjectView({ project, tasks, store, onEdit, onDeleteTas
           <button className="btn soft" onClick={onNewTask}>+ Add a task</button>
         </div>
       ) : (
-        <ul className="task-list">
-          {active.map((t) => (
-            <TaskItem key={t.id} task={t} {...itemProps} />
-          ))}
-        </ul>
+        <TaskSections tasks={active} {...itemProps} />
       )}
 
       {completed.length > 0 && (

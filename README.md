@@ -1,7 +1,7 @@
 # ClaudeTodoapp
 
-A minimal React (Vite) to-do app with projects, tasks, priorities, due dates,
-notes and a **Today** summary. Data is stored in the browser's `localStorage`.
+A React (Vite) to-do app with projects, tasks, priorities, due dates,
+notes and an **Overview** page. Data is stored in the browser's `localStorage`.
 
 ## Run it
 
@@ -17,9 +17,12 @@ npm run build      # production build in dist/
 - **Tasks:** title, notes/description, priority (High / Medium / Low), optional due date.
   Add tasks with the **+ New task** button, which opens a pop-up (on the Today page it also
   asks which project). Edit, delete, or tick off a task. Completed tasks are hidden behind a **Show completed** toggle.
-- **Today page:** open tasks from *all* projects that are **overdue**, **due today**
-  or **high priority**, grouped into those three sections (each task appears once).
-  Completed tasks drop off automatically.
+- **Now / Next / Later:** the Overview page (all projects) and every project page group open
+  tasks into three collapsible sections. Each task appears in one section only:
+  - **Now:** due today, overdue, or high priority
+  - **Next:** due in the next 7 days (after today)
+  - **Later:** everything else (no due date, or due later)
+  Completed tasks never appear on the Overview. Collapsed sections are remembered.
 - Sorting: overdue → due date → priority.
 - Modern light design; responsive (the sidebar becomes a slide-out menu and pop-ups become bottom sheets on mobile).
 

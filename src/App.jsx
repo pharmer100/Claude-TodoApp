@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useStore } from './hooks/useStore.js';
 import Sidebar from './components/Sidebar.jsx';
 import ProjectView from './components/ProjectView.jsx';
-import SummaryView, { getSummaryGroups } from './components/SummaryView.jsx';
+import SummaryView from './components/SummaryView.jsx';
+import { getSections } from './lib/dates.js';
 import TaskDialog from './components/TaskDialog.jsx';
 import ConfirmDialog from './components/ConfirmDialog.jsx';
 
@@ -40,9 +41,9 @@ export default function App() {
       onConfirm: () => store.removeTask(task.id),
     });
 
-  const summaryCount = getSummaryGroups(tasks).reduce((n, g) => n + g.tasks.length, 0);
+  const summaryCount = getSections(tasks)[0].tasks.length; // tasks in Now
   const project = projects.find((p) => p.id === view);
-  const viewTitle = project ? project.name : 'Today';
+  const viewTitle = project ? project.name : 'Overview';
 
   if (loading) return <div className="loading">Loading…</div>;
 

@@ -19,8 +19,8 @@ export default function Sidebar({ projects, tasks, view, onSelect, onAddProject,
   return (
     <nav className="sidebar">
       <button className={`nav-item ${view === 'summary' ? 'active' : ''}`} onClick={() => onSelect('summary')}>
-        <span>Today</span>
-        {summaryCount > 0 && <span className="count">{summaryCount}</span>}
+        <span>Overview</span>
+        {summaryCount > 0 && <span className="count" title="Tasks in Now">{summaryCount}</span>}
       </button>
 
       <div className="nav-heading">Projects</div>

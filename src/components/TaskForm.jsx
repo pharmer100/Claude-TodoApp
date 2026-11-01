@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 /**
  * Task fields. When `projects` is passed, a project picker is shown
- * (used when adding a task from the Today page).
+ * (used when adding a task from the Overview page).
  */
 export default function TaskForm({ initial, projects, defaultProjectId, onSubmit, onCancel, submitLabel = 'Add task' }) {
   const [title, setTitle] = useState(initial?.title ?? '');

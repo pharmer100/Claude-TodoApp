@@ -196,14 +196,38 @@ textarea.input { resize: vertical; }
 }
 .project-tag:hover { color: var(--accent); border-color: var(--accent); }
 
-/* Summary groups */
-.group { margin-bottom: 32px; }
-.group-title { margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.group-title .muted {
-  font-size: 0.75rem; background: var(--surface); border: 1px solid var(--border);
+/* Now / Next / Later sections */
+.group { margin-bottom: 20px; }
+.group-header {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: 0; padding: 8px 4px; margin-bottom: 6px;
+  cursor: pointer; text-align: left; border-radius: 8px; color: var(--text);
+}
+.group-header:hover { background: rgba(91, 91, 240, 0.05); }
+.chevron {
+  display: inline-grid; place-items: center; width: 18px; height: 18px;
+  color: var(--muted); font-size: 1.15rem; line-height: 1;
+  transition: transform 0.15s ease;
+}
+.group.open .chevron { transform: rotate(90deg); }
+.group-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+.group-title::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  margin-right: 8px; vertical-align: 2px; background: var(--muted);
+}
+.group-now .group-title::before { background: var(--danger); }
+.group-next .group-title::before { background: var(--medium); }
+.group-later .group-title::before { background: var(--low); }
+.group-count {
+  font-size: 0.75rem; font-weight: 600; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--border);
   border-radius: 999px; padding: 0 8px; font-variant-numeric: tabular-nums;
 }
-.group-overdue .group-title { color: var(--danger); }
+.group-hint { color: var(--muted); font-size: 0.82rem; margin-left: auto; text-align: right; }
+.group-empty {
+  margin: 0 0 4px; padding: 14px 16px; color: var(--muted); font-size: 0.88rem;
+  border: 1px dashed #d6d8ea; border-radius: var(--radius);
+}
 
 .completed-section { margin-top: 32px; }
 .toggle {
@@ -268,6 +292,7 @@ textarea.input { resize: vertical; }
   }
   h1 { font-size: 1.5rem; }
   .task-actions { opacity: 1; }
+  .group-hint { display: none; }
   .header-actions { width: 100%; }
   .header-actions .add-btn { margin-left: auto; }
   .overlay { align-items: end; padding: 0; }
